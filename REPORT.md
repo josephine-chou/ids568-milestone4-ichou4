@@ -41,7 +41,7 @@ transaction data.
 
 ### Performance Visualization
 
-![Performance Comparison](metrics_10m/performance_comparison.png)
+![Performance Comparison](charts/performance_comparison.png)
 
 ### Analysis
 

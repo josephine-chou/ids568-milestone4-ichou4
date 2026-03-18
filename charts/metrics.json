@@ -1,0 +1,27 @@
+{
+  "local": {
+    "mode": "local",
+    "total_rows": 10000000,
+    "load_time_s": 3.782,
+    "transform_time_s": 1.686,
+    "save_time_s": 6.336,
+    "total_time_s": 11.806,
+    "peak_memory_gb": 2.007,
+    "partitions": 1,
+    "shuffle_volume_mb": 0,
+    "output_path": "data/output_10m/local/features_local.parquet"
+  },
+  "distributed": {
+    "mode": "distributed",
+    "total_rows": 10000000,
+    "load_time_s": 8.084,
+    "transform_time_s": 21.655,
+    "save_time_s": 44.839,
+    "total_time_s": 74.578,
+    "peak_memory_gb": 0.034,
+    "partitions": 16,
+    "n_workers": 4,
+    "shuffle_partitions": 8,
+    "output_path": "data/output_10m/distributed/features_distributed"
+  }
+}
