@@ -1,0 +1,17 @@
+[
+  {
+    "workers": 1,
+    "total_time_s": 95.973,
+    "transform_time_s": 31.059
+  },
+  {
+    "workers": 2,
+    "total_time_s": 64.288,
+    "transform_time_s": 20.612
+  },
+  {
+    "workers": 4,
+    "total_time_s": 49.127,
+    "transform_time_s": 15.545
+  }
+]

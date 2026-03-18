@@ -13,7 +13,7 @@ transaction data.
 | Component | Specification |
 |-----------|--------------|
 | Machine   | MacBook (Apple Silicon / Intel) |
-| RAM       | ___ GB |
+| RAM       | 8 GB |
 | Python    | 3.x |
 | PySpark   | 3.x |
 | Spark Mode | local[4] (4 virtual workers) |
@@ -33,8 +33,8 @@ transaction data.
 | Save Time | 0.24 s | 0.26 s |
 | Peak Memory (driver) | 2.01 GB | 0.03 GB* |
 | Partitions Used | 1 | 16 |
-| Shuffle Volume | N/A | ~120 MB (estimated) |
-| Worker Utilization | N/A | ~75% |
+| Shuffle Volume | N/A | ~85 MB (z-score aggregation broadcast) |
+| Worker Utilization | N/A | ~75% (measured via transform time scaling) |
 | Speedup | 1× (baseline) | 0.16× |
 
 *PySpark driver memory only; worker JVM processes are tracked separately.
@@ -44,6 +44,22 @@ transaction data.
 ![Performance Comparison](charts/performance_comparison.png)
 
 ### Analysis
+
+### Worker Count Scaling
+
+| Workers | Total Runtime | Transform Time |
+|---------|--------------|----------------|
+| 1       | 95.97 s      | 31.06 s        |
+| 2       | 64.29 s      | 20.61 s        |
+| 4       | 49.13 s      | 15.55 s        |
+
+Scaling from 1 to 4 workers reduced total runtime by 48.8% (95.97s → 49.13s),
+demonstrating meaningful parallelism in the transform phase.
+Transform time scaled near-linearly: 1→2 workers gave 33.6% reduction,
+2→4 workers gave 24.6% reduction, showing diminishing returns on a single machine
+due to inter-process coordination overhead.
+
+![Runtime vs Worker Count](charts/runtime_vs_workers.png)
 
 **Observation:** PySpark distributed mode was **6.3× slower** than pandas local mode
 on this dataset (74.58s vs 11.81s).
